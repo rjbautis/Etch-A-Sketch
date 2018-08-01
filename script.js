@@ -1,5 +1,5 @@
 var div;
-const size = 500;    // Same as width, height of container
+const size = 600;    // Same as width, height of container
 
 function setUp() {
    div = document.createElement('div');
@@ -8,7 +8,6 @@ function setUp() {
    div.setAttribute('class', 'container');
    document.body.appendChild(div);
 }
-
 
 function createGrid(row, col) {
    for (let i = 0; i < row; i++) {
@@ -25,32 +24,46 @@ function createGrid(row, col) {
          div.appendChild(square);
       }
    }
+   // Initialize default brush
+   paint('black');
 
-   // Initialize the brush
-   brush();
+   // Initialize all other brushes
+   eraser();
+   blackBrush();
+   rainbowBrush();
 
    // Initialize clear and size buttons
    clear();
 }
 
-function brush() {
-   let squares = document.querySelectorAll('.square');
-
-   // For each square, add mouseover effect
-   squares.forEach.call(squares, function(e) {
-      e.addEventListener('mouseover', () => {
-         e.style.backgroundColor = 'black';
-      });
-   });
+function eraser() {
+   let eraserBtn = document.querySelector('#eraserBtn');
+   eraserBtn.addEventListener('click', () => paint('transparent'));
 }
+
+function blackBrush() {
+   let blackBtn = document.querySelector('#blackBtn');
+   blackBtn.addEventListener('click', () => paint('black'));
+}
+
+function rainbowBrush() {
+   let rainbowBtn = document.querySelector('#rainbowBtn');
+   rainbowBtn.addEventListener('click', () => paint('rainbow'));
+}
+
+
+// Need to finish
+function pencilBrush() {
+   let pencilBtn = document.querySelector('#pencilBtn');
+}
+
+
 
 function clear() {
    let clearBtn = document.querySelector('#clearBtn');
 
    clearBtn.addEventListener('click', () => {
       let squares = document.querySelectorAll('.square');
-
-      // For each square, add mouseover effect
       squares.forEach.call(squares, function(e) {
          e.style.backgroundColor = 'transparent';
       });      
@@ -78,6 +91,25 @@ function setSize() {
       createGrid(row, col);
    })
 }
+
+function paint(color) {
+   let squares = document.querySelectorAll('.square');
+   squares.forEach.call(squares, function(e) {
+      e.addEventListener('mouseover', () => {
+         if (color === 'rainbow') {
+            e.style.backgroundColor = 'rgb(' + generateColors() + ',' + 
+                                       generateColors() + ',' + generateColors() + ')';
+         } else {
+            e.style.backgroundColor = color;
+         }
+      });
+   });
+}
+
+function generateColors() {
+   return Math.floor(Math.random() * 256);
+}
+
 
 setUp();
 createGrid(16, 16);

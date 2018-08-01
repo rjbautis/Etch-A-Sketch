@@ -4,14 +4,13 @@ body {
 
 .square {
    float: left;               /* Floats each div to the left */
-   outline: 1px solid black;  /* Different from border */
+   /*outline: 1px solid black;   Different from border */
 }
 
 .container {
    clear: left;
    outline: 2px solid black;  /* Twice as thick outline as each square's outline */
-   width: 500px;
-   height: 500px;
+   width: 600px;
+   height: 600px;
    margin: auto;              /* Centers the container element */
-   margin-top: 50px;
 }
